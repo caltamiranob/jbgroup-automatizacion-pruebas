@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite guice-stage="DEVELOPMENT" name="Failed suite [VisorTestSuite]">
+  <parameter name="navegador" value="firefox"/>
+  <parameter name="remoto" value="0"/>
+  <test name="CategoriaWebDriverTest">
+    <parameter name="navegador" value="firefox"/>
+    <parameter name="remoto" value="0"/>
+    <classes>
+      <class name="pe.com.test.seleniumwd.CategoriaWebDriverTest"/>
+    </classes>
+  </test> <!-- CategoriaWebDriverTest -->
+</suite> <!-- Failed suite [VisorTestSuite] -->
