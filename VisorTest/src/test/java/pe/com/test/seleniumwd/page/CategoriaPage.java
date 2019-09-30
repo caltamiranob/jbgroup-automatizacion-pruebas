@@ -1,6 +1,9 @@
 package pe.com.test.seleniumwd.page;
 
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import pe.com.test.seleniumwd.driver.VisorDriver;
 import pe.com.test.seleniumwd.menu.CategoriaOpciones;
@@ -17,19 +20,19 @@ public class CategoriaPage extends MenuOpciones implements CategoriaOpciones {
 //	private By mensajeRespuesta = By.id("messages");
 	private WebDriver webDriver = null;
 	
+	private WebDriverWait webDriverWait = null;
+
 	public CategoriaPage(WebDriver webDriver) {
 		this.webDriver = webDriver;
+		this.webDriverWait = new WebDriverWait(this.webDriver, 20);
 	}
 
 	public String insertar(String nombre) throws Exception {
-		
-		Thread.sleep(2000);
+
 		this.webDriver.findElement(linkMenu).click();
 		
-		Thread.sleep(2000);
 		this.webDriver.findElement(linkModAlmacen).click();
 		
-		Thread.sleep(2000);
 		this.webDriver.findElement(linkMntCategoria).click();
 		
 		this.webDriver.findElement(botonNuevo).click();
@@ -39,9 +42,16 @@ public class CategoriaPage extends MenuOpciones implements CategoriaOpciones {
 		
 		this.webDriver.findElement(botonGuardar).click();
 		
-		Thread.sleep(2000);
+		return this.webDriverWait.until(
+			ExpectedConditions
+					.visibilityOfElementLocated(mensajeRespuesta)
+		).getText();
 		
-		return webDriver.findElement(mensajeRespuesta).getText();
+		
+//		return webDriver.findElement(mensajeRespuesta).getText();
+		
+		
+//		return this.webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(mensajeRespuesta)).getText();
 	}
 	
 	public void cerrarPagina(){

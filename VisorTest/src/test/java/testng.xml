@@ -8,8 +8,10 @@
 		</classes>
 	</test>
 	<test name="CategoriaWebDriverTest">
-		<parameter name="navegador" value="firefox"/>
+		<parameter name="navegador" value="chrome"/>
 		<parameter name="remoto" value="0"/>
+		<parameter name="fuenteDatos" value="BD"/>
+		<parameter name="rutaArchivo" value="C:\Data\DataCategoria.xls"/>
 		<classes>
 			<class name="pe.com.test.seleniumwd.CategoriaWebDriverTest" />
 		</classes>

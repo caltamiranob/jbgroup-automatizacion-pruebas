@@ -8,68 +8,61 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
-import pe.com.test.seleniumwd.fuenteDatos.Excel;
-import pe.com.test.seleniumwd.fuenteDatos.MySql;
+import pe.com.test.seleniumwd.dataprovider.DataProviderCategoria;
+import pe.com.test.seleniumwd.fuenteDatos.ExcelConBean;
+import pe.com.test.seleniumwd.fuenteDatos.bean.CategoriaBeanDataProvider;
 import pe.com.test.seleniumwd.page.CategoriaPage;
 import pe.com.test.seleniumwd.page.IniciarSesionPage;
 
-public class CategoriaWebDriverTest {
+
+
+public class CategoriaWebDriverTestConArray {
 
 	private String urlInicial = "http://localhost:8082/VisorWeb/";
 	private CategoriaPage categoriaPage;
 	private IniciarSesionPage iniciarSesionPage;
-
+	
 	@BeforeTest
-	@Parameters({ "navegador", "remoto" })
+	@Parameters({"navegador", "remoto"})
 	public void inicioClase(String navegador, int remoto) throws Exception {
 		this.iniciarSesionPage = new IniciarSesionPage(navegador, this.urlInicial, remoto == 1);
 		this.categoriaPage = new CategoriaPage(this.iniciarSesionPage.getWebDriver());
 	}
-
-	@DataProvider(name = "datosEntrada")
-	public static Object[][] datosPoblados(ITestContext context) {
-		Object[][] datos = null;
-		
-		String fuenteDatos = 
-				context
-					.getCurrentXmlTest()
-						.getParameter("fuenteDatos");
-		
-		String rutaArchivo =
-				context
-					.getCurrentXmlTest()
-						.getParameter("rutaArchivo");
-		
-		
-		switch (fuenteDatos) {
-			case "BD":
-				datos = MySql.leerCategoriaMysql();
-				break;
 	
-			case "Excel":
-				datos = Excel.leerExcel(rutaArchivo);
-				break;
-		}
-		
-		
-		return datos;
-	}
-
-	@Test(dataProvider = "datosEntrada")
+	
+	@Test(dataProvider = "categoriaDataProvider", dataProviderClass = DataProviderCategoria.class)
 	public void insertarCategoria(String usuario, String clave, String nombre, String valorEsperado) throws Exception {
 		try {
+			
 			iniciarSesionPage.iniciarSesion(usuario, clave);
+
 			String valorObtenido = categoriaPage.insertar(nombre.trim());
+			
 			Assert.assertEquals(valorObtenido, valorEsperado);
-		} catch (Exception e) {
+			
+		}catch (Exception e) {
 			e.printStackTrace();
 			Assert.fail();
 		}
 	}
-
+	
+	@Test(dataProvider = "categoriaDataProvider", 
+		  dataProviderClass = DataProviderCategoria.class)
+	public void editarCategoria(String apellidos, String nombres) throws Exception {
+		try {
+			
+			System.out.println(apellidos + " - " + nombres);
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+			Assert.fail();
+		}
+	}
+	
 	@AfterTest
 	public void tearDown() throws Exception {
 		categoriaPage.cerrarPagina();
 	}
-
+	
 }
+

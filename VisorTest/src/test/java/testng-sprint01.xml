@@ -1,0 +1,15 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="Sprint01Suite" parallel="false">
+	<test name="Sprint01">
+		<parameter name="navegador" value="chrome"/>
+		<parameter name="remoto" value="0"/>
+		<parameter name="rutaArchivo" value="C:\Data\DataCategoria.xls"/>
+		<classes>
+			<class name="pe.com.test.seleniumwd.CategoriaWebDriverTestConArray">
+				<methods>
+					<include name="editarCategoria" />
+				</methods>
+			</class>
+		</classes>
+	</test>
+</suite> 
